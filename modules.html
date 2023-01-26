@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Modularity, ALP and the Dream of the Modular Distribution</title>
+<meta name="author" content="Dan Čermák"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/simple.css" id="theme"/>
+
+<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
+
+<link rel="stylesheet" href="./custom-style.css"/>
+<link rel="stylesheet" href="./node_modules/reveal.js/plugin/highlight/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './node_modules/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h2 class="title">Modularity, ALP and the Dream of the Modular Distribution</h2>
+<p class="subtitle" style="color: Gray;"></p>
+<p class="author">Dan Čermák</p>
+<div style="float:left"><img src="./media/FOSDEM_logo.svg" height="50px" style="margin-bottom:-15px"/> <a href="https://fosdem.org/2023/">FOSDEM 2023</a></div>
+<div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+</section>
+
+<section>
+<section id="slide-org82ad558">
+<h2 id="org82ad558">who -u</h2>
+<p>
+Dan Čermák
+</p>
+
+<p>
+ <div style="float:center">
+ <table class="who-table">
+ <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE</td></tr>
+ <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>
+ <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Testing and Documentation, Home Automation</td></tr>
+ <tr></tr>
+ <tr></tr>
+ <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>
+ <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a></td></tr>
+ <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>
+ </table>
+ </div>
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org21c9c94">
+<h2 id="org21c9c94">What are modules?</h2>
+<aside class="notes">
+<ul>
+<li>subset of the distribution</li>
+<li>decoupled lifecycle from base os</li>
+<li>parallel streams</li>
+
+</ul>
+
+</aside>
+<p>
+ <img src="./media/modules_overview.svg"/>
+</p>
+
+</section>
+<section id="slide-org21c9c94-split">
+<p>
+ <img src="./media/module_streams.svg"/>
+</p>
+
+</section>
+<section id="slide-org90c3d75">
+<h3 id="org90c3d75">Why even bother?</h3>
+<ul>
+<li class="fragment appear">solve the too-fast-too-slow problem</li>
+<li class="fragment appear">parallel delivery</li>
+<li class="fragment appear">parallel installability</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org5a05032">
+<h2 id="org5a05032">Implementations</h2>
+<ol>
+<li class="fragment appear">SCLs</li>
+<li class="fragment appear">Modularity</li>
+<li class="fragment appear">SLE modules</li>
+<li class="fragment appear">ALP modules (?)</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org0a96f91">
+<h2 id="org0a96f91">Modularity</h2>
+<aside class="notes">
+<ul>
+<li>MBS introduces in F26</li>
+<li>first prototype not satisfactory, revamped <a href="https://communityblog.fedoraproject.org/modularity-dead-long-live-modularity/">https://communityblog.fedoraproject.org/modularity-dead-long-live-modularity/</a></li>
+<li>module defined via yaml:
+<ul>
+<li>collection of rpms, macros</li>
+<li>define buildorder, macros</li>
+<li>filter out packages from being shipped</li>
+
+</ul></li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment appear">introduced in Fedora 28</li>
+<li class="fragment appear">parallel availability, no parallel installability</li>
+<li class="fragment appear">module: collection of rpms + metadata</li>
+<li class="fragment appear">automatic stream expansion</li>
+<li class="fragment appear">encode build order in MBS</li>
+
+</ul>
+
+</section>
+<section id="slide-org0a96f91-split">
+
+<p>
+<img src="./media/modularity-hybrid-one-branch-builds-them-all.png"/>
+</p>
+
+</section>
+<section id="slide-org5107be8">
+<h3 id="org5107be8">Advantages of Modularity</h3>
+<ul>
+<li class="fragment appear">stream expansion</li>
+<li class="fragment appear">build order definition</li>
+
+</ul>
+
+</section>
+<section id="slide-org90ea889">
+<h3 id="org90ea889">Issues with Modularity</h3>
+<aside class="notes">
+<ul>
+<li>modular rpms land in your ordinary repo, look like non-modular ones</li>
+<li>removing packages from modules not working until very recently</li>
+<li>non-modular packages cannot depend on modular ones</li>
+<li>upgrading fN &rarr; fN+1 never worked</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment appear">modules not constrained by anything, just by module metadata</li>
+<li class="fragment appear">upgrading not working</li>
+<li class="fragment appear">complexity</li>
+<li class="fragment appear">module dependencies not encoded in rpms</li>
+<li class="fragment appear">tries to solve too many problems</li>
+
+</ul>
+
+</section>
+<section id="slide-org08d8126">
+<h3 id="org08d8126">Issues in Fedora</h3>
+<ul>
+<li class="fragment appear">was "forced" upon the distro</li>
+<li class="fragment appear">addresses RHEL problems in Fedora</li>
+<li class="fragment appear">"caused" the Java stack to implode</li>
+
+</ul>
+
+</section>
+<section id="slide-org39597f9">
+<h3 id="org39597f9">Lessons learned</h3>
+<ul>
+<li class="fragment appear">don't force this on the community</li>
+<li class="fragment appear">complexity is the enemy</li>
+<li class="fragment appear">don't add a second build system</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org7756fcb">
+<h2 id="org7756fcb">ALP modules</h2>
+<ul>
+<li class="fragment appear">will exist in some way</li>
+<li class="fragment appear">undecided <i>how</i> exactly</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org1c10c07">
+<h2 id="org1c10c07">Why is this such a hard problem?</h2>
+<blockquote >
+<p>
+If it was easy, everyone would do it.
+</p>
+
+<p>
+Jimmy Dugan, <i>A League of their Own</i>
+</p>
+</blockquote>
+
+</section>
+<section id="slide-org7d3fbad">
+<h3 id="org7d3fbad">No dependency free islands exist</h3>
+<aside class="notes">
+<ul>
+<li></li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment appear">external packages (from other modules) required for building</li>
+
+</ul>
+
+</section>
+<section id="slide-orgaf17f62">
+<h3 id="orgaf17f62">Build matrix explosion</h3>
+<ul>
+<li class="fragment appear">every module stream needs to get build against all other streams</li>
+
+</ul>
+
+</section>
+<section id="slide-org922d45b">
+<h3 id="org922d45b">QA matrix explosion</h3>
+<ul>
+<li class="fragment appear">test all applications against all modules</li>
+<li class="fragment appear">test all modules against all other modules</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd4c2f4e">
+<h2 id="orgd4c2f4e">So why bother?</h2>
+<p>
+modules try to solve real problems in enterprise distributions
+</p>
+<ul>
+<li class="fragment appear">don't support everything for all eternity™</li>
+<li class="fragment appear">do not want to support all combinations</li>
+<li class="fragment appear">customers want <i>more recent</i> software (but not the latest…)</li>
+<li class="fragment appear">customers want choices for stable/frozen devtools</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd4c2f4e-split">
+
+<p>
+ <img src="./media/modules_overview.svg"/>
+</p>
+
+</section>
+<section id="slide-org121cb92">
+<h3 id="org121cb92">Potential Approaches</h3>
+<aside class="notes">
+<ul>
+<li>parallel instalabillity has disadvantages:
+cannot change default (but that can be an advantage as well)</li>
+<li>problem with a set of "modular subrepos": end up with billions of repos and
+potential conflicts</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment appear">parallel installable/compat packages</li>
+<li class="fragment appear">additional repositories + vendor stickiness</li>
+<li class="fragment appear">build only certain module combinations</li>
+
+</ul>
+
+</section>
+<section id="slide-orge73a84e">
+<h3 id="orge73a84e">Will containers save us?</h3>
+<aside class="notes">
+<ul>
+<li>e.g. in a cockpit container cockpit is supported, but not using python for
+<code>$somethingElse</code> or ruby in yast container</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment appear">just a delivery mechanism</li>
+<li class="fragment appear">simplify not shipping everything</li>
+<li class="fragment appear">ease declaring what is supported</li>
+<li class="fragment appear">no concepts of obsoletes, EoL, …</li>
+
+</ul>
+
+<p>
+but you still have to build containers somehow…
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org1535ac2">
+<h2 id="org1535ac2">Questions?</h2>
+<p class="fragment (appear)">
+Answers!
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org15807cd">
+<h2 id="org15807cd">Legal / Sources</h2>
+<p>
+<i class="fa-solid fa-person-chalkboard"></i> <a href="https://dcermak.github.io/fosdem_2023/modules.html"><code>dcermak.github.io/fosdem_2023</code></a>
+</p>
+<ul>
+<li><a href="https://fedoracom.wpengine.com/wp-content/uploads/2017/12/modularity-hybrid-one-branch-builds-them-all.png">modularity-hybrid-one-branch-builds-them-all.png</a></li>
+<li><a href="https://upload.wikimedia.org/wikipedia/commons/8/8a/FOSDEM_logo.svg">FOSDEM logo</a> CC-BY-2.0 BE</li>
+<li><a href="https://revealjs.com/">reveal.js</a> MIT</li>
+<li><a href="https://fontawesome.com/">Font Awesome</a> CC-BY-4.0 and SIL OFL 1.1 and MIT</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="./node_modules/reveal.js/dist/reveal.js"></script>
+<script src="./node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="./node_modules/reveal.js/plugin/notes/notes.js"></script>
+
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+plugins: [RevealHighlight, RevealNotes, history],
+transition: 'none', hash: true
+});
+
+</script>
+</body>
+</html>
