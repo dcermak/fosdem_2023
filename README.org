@@ -1,0 +1,19 @@
+* FOSDEM 2023: Modularity, ALP and the Dream of the Modular Distribution
+
+This repository contains the slides for my presentation at FOSDEM 2023:
+[[https://fosdem.org/2023/schedule/event/modular_distro/][Modularity, ALP and the Dream of the Modular Distribution]]
+
+You can find the rendered slides here: [[https://dcermak.github.io/fosdem_2023/modules.html][=dcermak.github.io/fosdem_2023=]].
+
+
+** Building the slides
+
+You can create the html slides yourself from within Emacs by opening the
+[[./modules.org]] file, launching =org-mode= and executing ~(require 'ox-reveal)~ (you
+might have to install =ox-reveal= beforehand). Then export the org file to
+reveal.js (this is by default bound to the keychord =C-c C-e R R=).
+
+If you are not a Emacs user, then just install Emacs and execute:
+#+begin_src bash
+emacs modules.org -Q --batch -l export-init.el -f org-reveal-export-to-html --kill
+#+end_src

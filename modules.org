@@ -1,0 +1,218 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
+#+AUTHOR: Dan Čermák
+#+DATE: 5 February, 2023
+#+EMAIL: dcermak@suse.com
+#+TITLE: Modularity, ALP and the Dream of the Modular Distribution
+# #+SUBTITLE: Testing containers with python and pytest
+
+#+REVEAL_ROOT: ./node_modules/reveal.js/
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (highlight notes history)
+#+OPTIONS: toc:nil
+#+REVEAL_DEFAULT_FRAG_STYLE: appear
+#+REVEAL_INIT_OPTIONS: transition: 'none', hash: true
+#+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: ./node_modules/@fortawesome/fontawesome-free/css/all.min.css
+#+REVEAL_EXTRA_CSS: ./custom-style.css
+#+REVEAL_HIGHLIGHT_CSS: ./node_modules/reveal.js/plugin/highlight/zenburn.css
+
+#+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2>
+#+REVEAL_TITLE_SLIDE: <p class="subtitle" style="color: Gray;">%s</p>
+#+REVEAL_TITLE_SLIDE: <p class="author">%a</p>
+#+REVEAL_TITLE_SLIDE: <div style="float:left"><img src="./media/FOSDEM_logo.svg" height="50px" style="margin-bottom:-15px"/> <a href="https://fosdem.org/2023/">FOSDEM 2023</a></div>
+#+REVEAL_TITLE_SLIDE: <div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+#+REVEAL_TITLE_SLIDE: CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+
+* who -u
+
+Dan Čermák
+
+@@html: <div style="float:center">@@
+@@html: <table class="who-table">@@
+@@html: <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE</td></tr>@@
+@@html: <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>@@
+@@html: <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Testing and Documentation, Home Automation</td></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>@@
+@@html: </table>@@
+@@html: </div>@@
+
+
+* What are modules?
+
+#+BEGIN_NOTES
+- subset of the distribution
+- decoupled lifecycle from base os
+- parallel streams
+#+END_NOTES
+@@html: <img src="./media/modules_overview.svg"/>@@
+
+#+REVEAL: split
+@@html: <img src="./media/module_streams.svg"/>@@
+
+** Why even bother?
+
+#+ATTR_REVEAL: :frag (appear)
+- solve the too-fast-too-slow problem
+- parallel delivery
+- parallel installability
+
+
+* Implementations
+
+#+ATTR_REVEAL: :frag (appear)
+1. SCLs
+2. Modularity
+3. SLE modules
+4. ALP modules (?)
+
+* Modularity
+
+#+begin_notes
+- MBS introduces in F26
+- first prototype not satisfactory, revamped https://communityblog.fedoraproject.org/modularity-dead-long-live-modularity/
+- module defined via yaml:
+  - collection of rpms, macros
+  - define buildorder, macros
+  - filter out packages from being shipped
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- introduced in Fedora 28
+- parallel availability, no parallel installability
+- module: collection of rpms + metadata
+- automatic stream expansion
+- encode build order in MBS
+
+#+REVEAL: split
+
+@@html:<img src="./media/modularity-hybrid-one-branch-builds-them-all.png"/>@@
+
+** Advantages of Modularity
+
+#+ATTR_REVEAL: :frag (appear)
+- stream expansion
+- build order definition
+
+** Issues with Modularity
+
+#+begin_notes
+- modular rpms land in your ordinary repo, look like non-modular ones
+- removing packages from modules not working until very recently
+- non-modular packages cannot depend on modular ones
+- upgrading fN \rightarrow fN+1 never worked
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- modules not constrained by anything, just by module metadata
+- upgrading not working
+- complexity
+- module dependencies not encoded in rpms
+- tries to solve too many problems
+
+** Issues in Fedora
+
+#+ATTR_REVEAL: :frag (appear)
+- was "forced" upon the distro
+- addresses RHEL problems in Fedora
+- "caused" the Java stack to implode
+
+** Lessons learned
+
+#+ATTR_REVEAL: :frag (appear)
+- don't force this on the community
+- complexity is the enemy
+- don't add a second build system
+
+
+* ALP modules
+
+#+ATTR_REVEAL: :frag (appear)
+- will exist in some way
+- undecided /how/ exactly
+
+* Why is this such a hard problem?
+
+#+begin_quote
+If it was easy, everyone would do it.
+
+Jimmy Dugan, /A League of their Own/
+#+end_quote
+
+** No dependency free islands exist
+#+begin_notes
+- 
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- external packages (from other modules) required for building
+
+** Build matrix explosion
+
+#+ATTR_REVEAL: :frag (appear)
+- every module stream needs to get build against all other streams
+
+** QA matrix explosion
+
+#+ATTR_REVEAL: :frag (appear)
+- test all applications against all modules
+- test all modules against all other modules
+
+* So why bother?
+
+modules try to solve real problems in enterprise distributions
+#+ATTR_REVEAL: :frag (appear)
+- don't support everything for all eternity™
+- do not want to support all combinations
+- customers want /more recent/ software (but not the latest…)
+- customers want choices for stable/frozen devtools
+
+#+REVEAL: split
+
+@@html: <img src="./media/modules_overview.svg"/>@@
+
+** Potential Approaches
+
+#+begin_notes
+- parallel instalabillity has disadvantages:
+  cannot change default (but that can be an advantage as well)
+- problem with a set of "modular subrepos": end up with billions of repos and
+  potential conflicts
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- parallel installable/compat packages
+- additional repositories + vendor stickiness
+- build only certain module combinations
+
+** Will containers save us?
+#+begin_notes
+- e.g. in a cockpit container cockpit is supported, but not using python for
+  ~$somethingElse~ or ruby in yast container
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- just a delivery mechanism
+- simplify not shipping everything
+- ease declaring what is supported
+- no concepts of obsoletes, EoL, …
+
+#+ATRR_REVEAL: :frag (appear) :frag_idx (5)
+but you still have to build containers somehow…
+
+* Questions?
+
+#+ATTR_REVEAL: :frag (appear)
+Answers!
+
+
+* Legal / Sources
+
+@@html:<i class="fa-solid fa-person-chalkboard"></i>@@ [[https://dcermak.github.io/fosdem_2023/modules.html][=dcermak.github.io/fosdem_2023=]]
+- [[https://fedoracom.wpengine.com/wp-content/uploads/2017/12/modularity-hybrid-one-branch-builds-them-all.png][modularity-hybrid-one-branch-builds-them-all.png]]
+- [[https://upload.wikimedia.org/wikipedia/commons/8/8a/FOSDEM_logo.svg][FOSDEM logo]] CC-BY-2.0 BE
+- [[https://revealjs.com/][reveal.js]] MIT
+- [[https://fontawesome.com/][Font Awesome]] CC-BY-4.0 and SIL OFL 1.1 and MIT
