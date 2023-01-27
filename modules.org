@@ -93,9 +93,17 @@ Dan Čermák
 
 ** Advantages of Modularity
 
-#+ATTR_REVEAL: :frag (appear)
+#+begin_notes
+- stream expansion makes your life easier but can cause problems
+- build order definition \rightarrow that's what the build system itself should do…
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear appear) :frag_idx (1 2)
 - stream expansion
 - build order definition
+
+#+ATTR_REVEAL: :frag t :frag_idx 3
+but both are "just" build system improvements
 
 ** Issues with Modularity
 
@@ -181,11 +189,13 @@ modules try to solve real problems in enterprise distributions
   cannot change default (but that can be an advantage as well)
 - problem with a set of "modular subrepos": end up with billions of repos and
   potential conflicts
+- vendor stickiness ensures that packages stay in the module on upgrades
+- add provides, requires, etc. to repos - i.e. treat them like packages
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
 - parallel installable/compat packages
-- additional repositories + vendor stickiness
+- additional repositories + vendor stickiness + treat repositories like packages
 - build only certain module combinations
 
 ** Will containers save us?
@@ -194,14 +204,14 @@ modules try to solve real problems in enterprise distributions
   ~$somethingElse~ or ruby in yast container
 #+end_notes
 
-#+ATTR_REVEAL: :frag (appear)
+#+ATTR_REVEAL: :frag (appear appear appear appear) :frag_idx (1 2 3 4)
 - just a delivery mechanism
 - simplify not shipping everything
 - ease declaring what is supported
-- no concepts of obsoletes, EoL, …
+- no concepts of obsoletes, EoL, etc.
 
-#+ATRR_REVEAL: :frag (appear) :frag_idx (5)
-but you still have to build containers somehow…
+#+ATTR_REVEAL: :frag t :frag_idx 5
+but you still have to build containers somehow
 
 * Questions?
 
