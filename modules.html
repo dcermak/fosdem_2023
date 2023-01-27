@@ -40,8 +40,8 @@ CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-comm
 </section>
 
 <section>
-<section id="slide-org82ad558">
-<h2 id="org82ad558">who -u</h2>
+<section id="slide-org7a6960c">
+<h2 id="org7a6960c">who -u</h2>
 <p>
 Dan Čermák
 </p>
@@ -65,8 +65,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org21c9c94">
-<h2 id="org21c9c94">What are modules?</h2>
+<section id="slide-orgdf5c132">
+<h2 id="orgdf5c132">What are modules?</h2>
 <aside class="notes">
 <ul>
 <li>subset of the distribution</li>
@@ -81,14 +81,14 @@ Dan Čermák
 </p>
 
 </section>
-<section id="slide-org21c9c94-split">
+<section id="slide-orgdf5c132-split">
 <p>
  <img src="./media/module_streams.svg"/>
 </p>
 
 </section>
-<section id="slide-org90c3d75">
-<h3 id="org90c3d75">Why even bother?</h3>
+<section id="slide-org784356e">
+<h3 id="org784356e">Why even bother?</h3>
 <ul>
 <li class="fragment appear">solve the too-fast-too-slow problem</li>
 <li class="fragment appear">parallel delivery</li>
@@ -100,8 +100,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org5a05032">
-<h2 id="org5a05032">Implementations</h2>
+<section id="slide-orga405d79">
+<h2 id="orga405d79">Implementations</h2>
 <ol>
 <li class="fragment appear">SCLs</li>
 <li class="fragment appear">Modularity</li>
@@ -113,8 +113,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org0a96f91">
-<h2 id="org0a96f91">Modularity</h2>
+<section id="slide-org57810a5">
+<h2 id="org57810a5">Modularity</h2>
 <aside class="notes">
 <ul>
 <li>MBS introduces in F26</li>
@@ -141,24 +141,37 @@ Dan Čermák
 </ul>
 
 </section>
-<section id="slide-org0a96f91-split">
+<section id="slide-org57810a5-split">
 
 <p>
 <img src="./media/modularity-hybrid-one-branch-builds-them-all.png"/>
 </p>
 
 </section>
-<section id="slide-org5107be8">
-<h3 id="org5107be8">Advantages of Modularity</h3>
+<section id="slide-org78addfe">
+<h3 id="org78addfe">Advantages of Modularity</h3>
+<aside class="notes">
 <ul>
-<li class="fragment appear">stream expansion</li>
-<li class="fragment appear">build order definition</li>
+<li>stream expansion makes your life easier but can cause problems</li>
+<li>build order definition &rarr; that's what the build system itself should do…</li>
 
 </ul>
 
+</aside>
+
+<ul>
+<li data-fragment-index="1" class="fragment appear">stream expansion</li>
+<li data-fragment-index="2" class="fragment appear">build order definition</li>
+
+</ul>
+
+<p data-fragment-index="3" class="fragment appear">
+but both are "just" build system improvements
+</p>
+
 </section>
-<section id="slide-org90ea889">
-<h3 id="org90ea889">Issues with Modularity</h3>
+<section id="slide-orgdb91161">
+<h3 id="orgdb91161">Issues with Modularity</h3>
 <aside class="notes">
 <ul>
 <li>modular rpms land in your ordinary repo, look like non-modular ones</li>
@@ -180,8 +193,8 @@ Dan Čermák
 </ul>
 
 </section>
-<section id="slide-org08d8126">
-<h3 id="org08d8126">Issues in Fedora</h3>
+<section id="slide-org328a76a">
+<h3 id="org328a76a">Issues in Fedora</h3>
 <ul>
 <li class="fragment appear">was "forced" upon the distro</li>
 <li class="fragment appear">addresses RHEL problems in Fedora</li>
@@ -190,8 +203,8 @@ Dan Čermák
 </ul>
 
 </section>
-<section id="slide-org39597f9">
-<h3 id="org39597f9">Lessons learned</h3>
+<section id="slide-org5f94452">
+<h3 id="org5f94452">Lessons learned</h3>
 <ul>
 <li class="fragment appear">don't force this on the community</li>
 <li class="fragment appear">complexity is the enemy</li>
@@ -203,8 +216,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org7756fcb">
-<h2 id="org7756fcb">ALP modules</h2>
+<section id="slide-orge374e0f">
+<h2 id="orge374e0f">ALP modules</h2>
 <ul>
 <li class="fragment appear">will exist in some way</li>
 <li class="fragment appear">undecided <i>how</i> exactly</li>
@@ -214,8 +227,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org1c10c07">
-<h2 id="org1c10c07">Why is this such a hard problem?</h2>
+<section id="slide-org1641548">
+<h2 id="org1641548">Why is this such a hard problem?</h2>
 <blockquote >
 <p>
 If it was easy, everyone would do it.
@@ -227,8 +240,8 @@ Jimmy Dugan, <i>A League of their Own</i>
 </blockquote>
 
 </section>
-<section id="slide-org7d3fbad">
-<h3 id="org7d3fbad">No dependency free islands exist</h3>
+<section id="slide-orgb3b32f4">
+<h3 id="orgb3b32f4">No dependency free islands exist</h3>
 <aside class="notes">
 <ul>
 <li></li>
@@ -243,16 +256,16 @@ Jimmy Dugan, <i>A League of their Own</i>
 </ul>
 
 </section>
-<section id="slide-orgaf17f62">
-<h3 id="orgaf17f62">Build matrix explosion</h3>
+<section id="slide-org1b6104e">
+<h3 id="org1b6104e">Build matrix explosion</h3>
 <ul>
 <li class="fragment appear">every module stream needs to get build against all other streams</li>
 
 </ul>
 
 </section>
-<section id="slide-org922d45b">
-<h3 id="org922d45b">QA matrix explosion</h3>
+<section id="slide-orgfbd0610">
+<h3 id="orgfbd0610">QA matrix explosion</h3>
 <ul>
 <li class="fragment appear">test all applications against all modules</li>
 <li class="fragment appear">test all modules against all other modules</li>
@@ -262,8 +275,8 @@ Jimmy Dugan, <i>A League of their Own</i>
 </section>
 </section>
 <section>
-<section id="slide-orgd4c2f4e">
-<h2 id="orgd4c2f4e">So why bother?</h2>
+<section id="slide-org02b6283">
+<h2 id="org02b6283">So why bother?</h2>
 <p>
 modules try to solve real problems in enterprise distributions
 </p>
@@ -276,21 +289,23 @@ modules try to solve real problems in enterprise distributions
 </ul>
 
 </section>
-<section id="slide-orgd4c2f4e-split">
+<section id="slide-org02b6283-split">
 
 <p>
  <img src="./media/modules_overview.svg"/>
 </p>
 
 </section>
-<section id="slide-org121cb92">
-<h3 id="org121cb92">Potential Approaches</h3>
+<section id="slide-orgce6824b">
+<h3 id="orgce6824b">Potential Approaches</h3>
 <aside class="notes">
 <ul>
 <li>parallel instalabillity has disadvantages:
 cannot change default (but that can be an advantage as well)</li>
 <li>problem with a set of "modular subrepos": end up with billions of repos and
 potential conflicts</li>
+<li>vendor stickiness ensures that packages stay in the module on upgrades</li>
+<li>add provides, requires, etc. to repos - i.e. treat them like packages</li>
 
 </ul>
 
@@ -298,14 +313,14 @@ potential conflicts</li>
 
 <ul>
 <li class="fragment appear">parallel installable/compat packages</li>
-<li class="fragment appear">additional repositories + vendor stickiness</li>
+<li class="fragment appear">additional repositories + vendor stickiness + treat repositories like packages</li>
 <li class="fragment appear">build only certain module combinations</li>
 
 </ul>
 
 </section>
-<section id="slide-orge73a84e">
-<h3 id="orge73a84e">Will containers save us?</h3>
+<section id="slide-org64c722c">
+<h3 id="org64c722c">Will containers save us?</h3>
 <aside class="notes">
 <ul>
 <li>e.g. in a cockpit container cockpit is supported, but not using python for
@@ -316,22 +331,22 @@ potential conflicts</li>
 </aside>
 
 <ul>
-<li class="fragment appear">just a delivery mechanism</li>
-<li class="fragment appear">simplify not shipping everything</li>
-<li class="fragment appear">ease declaring what is supported</li>
-<li class="fragment appear">no concepts of obsoletes, EoL, …</li>
+<li data-fragment-index="1" class="fragment appear">just a delivery mechanism</li>
+<li data-fragment-index="2" class="fragment appear">simplify not shipping everything</li>
+<li data-fragment-index="3" class="fragment appear">ease declaring what is supported</li>
+<li data-fragment-index="4" class="fragment appear">no concepts of obsoletes, EoL, etc.</li>
 
 </ul>
 
-<p>
-but you still have to build containers somehow…
+<p data-fragment-index="5" class="fragment appear">
+but you still have to build containers somehow
 </p>
 
 </section>
 </section>
 <section>
-<section id="slide-org1535ac2">
-<h2 id="org1535ac2">Questions?</h2>
+<section id="slide-org984fb35">
+<h2 id="org984fb35">Questions?</h2>
 <p class="fragment (appear)">
 Answers!
 </p>
@@ -340,8 +355,8 @@ Answers!
 </section>
 </section>
 <section>
-<section id="slide-org15807cd">
-<h2 id="org15807cd">Legal / Sources</h2>
+<section id="slide-orgad30823">
+<h2 id="orgad30823">Legal / Sources</h2>
 <p>
 <i class="fa-solid fa-person-chalkboard"></i> <a href="https://dcermak.github.io/fosdem_2023/modules.html"><code>dcermak.github.io/fosdem_2023</code></a>
 </p>
